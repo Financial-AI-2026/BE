@@ -1,0 +1,268 @@
+{
+  "_meta": {
+    "version": 1,
+    "scope": "트랙 A 고정 3샘플(A/B/C)만. 4번째 이후 샘플 추가 시 별도 파일 또는 이 파일의 samples에 추가하되, 이 _meta.denominator도 같이 갱신할 것.",
+    "denominator": 24,
+    "denominator_basis": "Tier1 8필드 × 3샘플. '지수' 필드는 기초지수+비교지수 조합으로 1칸.",
+    "scoring_rules_ref": "필드별 판정 방식은 CLAUDE.md '채점 규칙' 절 참조. enum은 완전일치, 표기 흔들림 불허.",
+    "confirmed_2026-08-22": [
+      "총보수 3종: 투자설명서 표 + 미래에셋 공식페이지 + FunETF 3중 교차검증 완료",
+      "기초지수/비교지수 분리: B 투자설명서(p.27, 제2부 9)가 '기초지수 추종 ETF가 아니다'라고 명시. KRX 유가증권시장 상장규정(상관계수 액티브 0.7 / 일반 0.9)이 이 구분의 법적 근거.",
+      "모델 확정: gpt-5-mini, reasoning_effort=medium. gpt-5 계열은 temperature 파라미터를 거부해 CLAUDE.md의 'temperature=0 고정' 설계를 포기하고 seed 단독 재현성 측정으로 전환(config.yaml 참조).",
+      "A 1종 파일럿(C1, gpt-5-mini) 실행 결과 정답지 오류 4건 발견 — 아래 종목명/기초지수/비교지수/분배정책 항목에 반영."
+    ],
+    "pilot_findings_2026-08-22": [
+      "종목명: A/B/C 투자설명서 어디에도 짧은 거래용 상품명·종목코드·표준코드(ISIN)가 등장하지 않음(각 0회). 문서는 시종일관 법정 등록 명칭만 사용. 종목코드 225040=KR7225040005=TIGER 미국S&P500레버리지(합성 H)는 같은 상품임을 상장일(2015.07.29 PDF 내 기재와 외부소스 일치)·총보수(0.25% 일치)로 교차검증 완료 — 다른 상품 아님, 표기 관행 차이. 짧은 이름은 KRX 거래용 시장명이고 법정 명칭은 투자설명서용 정식 펀드명. 종목명 필드는 이제부터 법정 명칭 기준으로 채점.",
+      "기초지수/비교지수 허용목록이 한글 표기만 커버했으나 문서·공식페이지가 영문 표기도 병용함을 확인, 추가.",
+      "비교지수 허용목록에 원문의 '* 100%' 접미사 누락 — A/B 문서 실측 확인 후 추가(C는 해당 접미사 없음).",
+      "A 분배정책: 명세서 원안은 '무분배'였으나, 실제 지급기준일 조항이 B(월분배 확정)의 '매월 마지막 영업일 및 회계기간종료일'과 달리 A는 '회계기간종료일'만 명시 — 펀드별로 다르게 적힌 실제 조항(범용 표준조항 아님). '연분배'로 정정."
+    ],
+    "open_items": [
+      "종목명 정규화 알고리즘(공백/괄호 처리 구체 규칙)은 채점 스크립트 작성 시 확정"
+    ]
+  },
+
+  "enum_definitions": {
+    "복제방식": ["실물", "합성"],
+    "환헤지여부": ["헤지", "미헤지", "해당없음"],
+    "전략유형": ["지수추종", "레버리지", "인버스", "커버드콜", "타겟데이트", "액티브", "기타"],
+    "분배정책": ["무분배", "월분배", "분기분배", "반기분배", "연분배"]
+  },
+
+  "samples": {
+    "A": {
+      "종목명": "미래에셋TIGERS&P500레버리지증권상장지수투자신탁(주식혼합-파생형)(합성 H)",
+      "종목코드": "225040",
+      "표준코드": "KR7225040005",
+      "구조유형": "레버리지+합성복제+환헤지",
+      "fields": {
+        "종목명": {
+          "type": "string",
+          "match": "exact_after_normalize",
+          "expected": "미래에셋TIGERS&P500레버리지증권상장지수투자신탁(주식혼합-파생형)(합성 H)",
+          "note": "투자설명서에 실제로 기재된 법정 명칭. 증권사 앱에서 쓰는 약칭(TIGER 미국S&P500레버리지(합성 H))은 투자설명서에 등장하지 않아 채점 대상에서 제외. 같은 상품임은 상장일(2015.07.29)·총보수(0.25%) 교차검증으로 확인. 배경: 이 펀드는 금융투자협회 펀드 코드(B5268 / K55301B52687)와 KRX 상장 종목 코드(225040 / KR7225040005)를 동시에 부여받은 상장지수펀드(ETF). 펀드 코드는 뱅킹·펀드 평가사에서 조회할 때, 종목 코드는 증권사 HTS/MTS에서 실시간 매매할 때 각각 쓰이며, 알맹이(자산, 운용역, 수수료)는 동일한 하나의 상품임."
+        },
+        "지수": {
+          "type": "composite",
+          "match": "both_subfields_must_match",
+          "note": "AI가 '기초지수' 하나만 반환하는 스키마라면, 값이 기초지수·비교지수 중 어느 쪽과 비교되는지부터 프롬프트에서 구분하게 할 것.",
+          "기초지수": {
+            "expected_allowed": ["S&P 500", "S&P500", "S&P 500 지수", "S&P 500 Index (Price Return)", "S&P 500 Index(Price Return)"],
+            "source_section": "제2부 7(투자목적), 제2부 9(투자전략)"
+          },
+          "비교지수": {
+            "expected_allowed": [
+              "S&P 500 2X Leverage Daily",
+              "S&P 500 2X Leverage Daily 지수",
+              "S&P 500 2X Leverage Daily 지수 * 100%"
+            ],
+            "source_section": "요약정보(주1), 제2부 9"
+          }
+        },
+        "레버리지배율": {
+          "type": "float",
+          "match": "exact_numeric",
+          "expected": 2.0,
+          "evidence_quote_verified": "이 투자신탁은 S&P 500 지수 일간 수익률의 양(陽)의 2배 수익률을 추구합니다.",
+          "source_section": "표지 유의사항 14번, 제2부 9"
+        },
+        "복제방식": {
+          "type": "enum",
+          "match": "exact",
+          "expected": "합성",
+          "evidence_quote_verified": "이 투자신탁은 거래상대방과의 장외파생상품 계약을 통해 기초지수인 \"S&P 500 지수\"의 성과를 추종하는 합성상장지수집합투자기구입니다.",
+          "source_section": "표지 유의사항 15번, 제2부 6/9",
+          "note": "문서 내 'TRS'라는 문자열은 등장하지 않음. 실제 표기는 '장외파생상품'/'스왑'/'거래상대방'."
+        },
+        "환헤지여부": {
+          "type": "enum",
+          "match": "exact",
+          "expected": "헤지",
+          "evidence_quote_verified": null,
+          "source_section": "제2부 9",
+          "note": "미래에셋 공식페이지에서 '환헤지를 실시함' 확인. 투자설명서 내 정확한 문장은 채점 스크립트 작성 시 대조."
+        },
+        "전략유형": {
+          "type": "enum",
+          "match": "exact",
+          "expected": "레버리지",
+          "source_section": "제2부 6/9"
+        },
+        "분배정책": {
+          "type": "enum",
+          "match": "exact",
+          "expected": "연분배",
+          "source_section": "제2부 14",
+          "evidence_quote_verified": "-지급기준일 : 회계기간 종료일(다만 회계기간 종료일이 영업일이 아닌 경우 그 직전 영업일)\n-지급시기 : 지급기준일 익영업일로부터 제7영업일 이내",
+          "note": "명세서 원안 '무분배'에서 정정(2026-08-22, 파일럿 발견). B(월분배 확정)는 동일 조항에 '매월 마지막 영업일 및 회계기간종료일'로 적혀 있어 대조됨 — 범용 표준조항이 아니라 펀드별 실제 조항. 다만 같은 조항에 '추적오차 최소화를 위해 지급하지 않을 수 있다'는 재량 문구도 있어 실제 지급 이력 확인이 필요할 수 있음."
+        },
+        "총보수": {
+          "type": "float",
+          "match": "exact_2dp",
+          "expected": 0.25,
+          "status": "confirmed",
+          "cross_check": [
+            "투자설명서 요약정보(p.5) 및 제2부 13(p.43) 표: 총보수 0.25 (운용 0.209 + 지정참가 0.001 + 신탁 0.02 + 사무 0.02)",
+            "미래에셋 TIGER ETF 공식 상품페이지: 연 0.25%",
+            "FunETF: 확인 안 함(교차검증은 미래에셋 공식페이지로 충분)"
+          ]
+        }
+      }
+    },
+
+    "B": {
+      "종목명": "미래에셋TIGER배당커버드콜액티브증권상장지수투자신탁(주식)",
+      "종목코드": "472150",
+      "표준코드": "KR7472150002",
+      "구조유형": "커버드콜+액티브+월분배",
+      "fields": {
+        "종목명": {
+          "type": "string",
+          "match": "exact_after_normalize",
+          "expected": "미래에셋TIGER배당커버드콜액티브증권상장지수투자신탁(주식)",
+          "note": "투자설명서에 실제로 기재된 법정 명칭. 증권사 앱에서 쓰는 약칭(TIGER 배당커버드콜액티브)은 투자설명서에 등장하지 않아 채점 대상에서 제외(pilot_findings 참조)."
+        },
+        "지수": {
+          "type": "composite",
+          "match": "both_subfields_must_match",
+          "note": "기초지수 null이 정답. 문서가 '기초지수 수익률 추종을 목표로 운용되는 ETF가 아니라'고 명시(p.27, 제2부 9). 여기에 값을 채우면 오답 처리할 것 — CLAUDE.md '근거 없으면 null' 원칙과 별개로, 이 필드는 애초에 값이 존재하지 않는 게 정답인 사례.",
+          "기초지수": {
+            "expected_allowed": [null],
+            "source_section": "제2부 9 (부재를 명시)"
+          },
+          "비교지수": {
+            "expected_allowed": [
+              "KOSPI 200 커버드콜 5% OTM",
+              "코스피200 커버드콜 5% OTM",
+              "코스피 200 커버드콜 5% OTM",
+              "KOSPI 200 커버드콜 5% OTM 지수",
+              "코스피200 커버드콜 5% OTM 지수",
+              "KOSPI 200 커버드콜 5% OTM 지수 * 100%",
+              "코스피 200 커버드콜 5% OTM 지수 * 100%"
+            ],
+            "source_section": "요약정보(주1), 제2부 9, 제3부 3"
+          }
+        },
+        "레버리지배율": {
+          "type": "float",
+          "match": "exact_numeric",
+          "expected": 1.0
+        },
+        "복제방식": {
+          "type": "enum",
+          "match": "exact",
+          "expected": "실물",
+          "source_section": "제2부 6/8/9"
+        },
+        "환헤지여부": {
+          "type": "enum",
+          "match": "exact",
+          "expected": "해당없음",
+          "note": "국내 자산 투자이므로 환헤지 개념 자체가 적용되지 않는 케이스. '미헤지'와 구분할 것 — '미헤지'는 해외자산인데 헤지를 안 한 경우."
+        },
+        "전략유형": {
+          "type": "enum",
+          "match": "exact",
+          "expected": "커버드콜",
+          "note": "명세서 기준 기대값은 '커버드콜'. 액티브 여부는 Tier2 '액티브여부'(bool) 필드로 별도 확인."
+        },
+        "분배정책": {
+          "type": "enum",
+          "match": "exact",
+          "expected": "월분배",
+          "source_section": "제2부 14",
+          "evidence_quote_verified": null,
+          "note": "매월 마지막 영업일 기준 지급. 정확한 원문 문장은 채점 스크립트 작성 시 대조."
+        },
+        "총보수": {
+          "type": "float",
+          "match": "exact_2dp",
+          "expected": 0.50,
+          "status": "confirmed",
+          "cross_check": [
+            "투자설명서 요약정보(p.5) 및 제2부 13(p.43) 표: 총보수 0.5 (운용 0.45 + 지정참가 0.01 + 신탁 0.02 + 사무 0.02)",
+            "미래에셋 TIGER ETF 공식 상품페이지: 연 0.5000% (운용보수 0.4500%)",
+            "FunETF: 연 0.5000%"
+          ]
+        }
+      }
+    },
+
+    "C": {
+      "종목명": "미래에셋TIGER적격TDF2045증권상장지수투자신탁(주식혼합)",
+      "종목코드": "0025N0",
+      "표준코드": "KR70025N0008",
+      "구조유형": "타겟데이트+자산배분",
+      "fields": {
+        "종목명": {
+          "type": "string",
+          "match": "exact_after_normalize",
+          "expected": "미래에셋TIGER적격TDF2045증권상장지수투자신탁(주식혼합)",
+          "note": "투자설명서에 실제로 기재된 법정 명칭. 증권사 앱에서 쓰는 약칭(TIGER TDF2045 적격)은 투자설명서에 등장하지 않아 채점 대상에서 제외(pilot_findings 참조)."
+        },
+        "지수": {
+          "type": "composite",
+          "match": "both_subfields_must_match",
+          "note": "C는 기초지수=비교지수. A/B와 달리 분리해도 두 값이 같음 — 스키마 통일성 확인용 케이스로도 쓸 수 있음.",
+          "기초지수": {
+            "expected_allowed": [
+              "S&P Korea Target Date 2045 Global Index(PR)",
+              "S&P Korea Target Date 2045 Global Index",
+              "S&P Korea Target Date 2045 Global"
+            ],
+            "evidence_quote_verified": "이 투자신탁은 \"S&P Korea Target Date 2045 Global Index(PR)\"를 기초지수로 하는 상장지수투자신탁으로서",
+            "source_section": "제2부 7/9"
+          },
+          "비교지수": {
+            "expected_allowed": [
+              "S&P Korea Target Date 2045 Global Index(PR)",
+              "S&P Korea Target Date 2045 Global Index"
+            ],
+            "source_section": "요약정보(주1), 제2부 9"
+          }
+        },
+        "레버리지배율": {
+          "type": "float",
+          "match": "exact_numeric",
+          "expected": 1.0
+        },
+        "복제방식": {
+          "type": "enum",
+          "match": "exact",
+          "expected": "실물",
+          "source_section": "제2부 6/8/9"
+        },
+        "환헤지여부": {
+          "type": "enum",
+          "match": "exact",
+          "expected": "미헤지",
+          "note": "해외자산(글로벌 주식) 포함이나 환헤지 미실시. '해당없음'과 혼동 주의 — B와 반대 케이스."
+        },
+        "전략유형": {
+          "type": "enum",
+          "match": "exact",
+          "expected": "타겟데이트"
+        },
+        "분배정책": {
+          "type": "enum",
+          "match": "exact",
+          "expected": "분기분배",
+          "source_section": "제2부 14",
+          "evidence_quote_verified": "-지급기준일 : 매 1, 4, 7, 10월의 마지막 영업일 및 회계기간 종료일(다만 회계기간 종료일이 영업일이 아닌 경우 그 직전 영업일)\n-지급시기 : 지급기준일 익영업일로부터 제7영업일 이내",
+          "note": "1, 4, 7, 10월(분기) 지급. 다만 '추적오차 최소화를 위해 지급하지 않을 수 있다'는 재량 문구도 있음. 기본 정책은 분기분배."
+        },
+        "총보수": {
+          "type": "float",
+          "match": "exact_2dp",
+          "expected": 0.19,
+          "status": "confirmed",
+          "cross_check": [
+            "투자설명서 요약정보(p.4) 및 제2부 13(p.34-35) 표: 총보수 0.19 (운용 0.169 + 지정참가 0.001 + 신탁 0.01 + 사무 0.01)",
+            "미래에셋 TIGER ETF 공식 상품페이지: 운용 0.169% + 지정참가 0.001% + 신탁 0.01% + 일반사무 0.01% = 0.19%",
+            "언론보도(전자신문 2026-03-24): 총보수 0.19%"
+          ]
+        }
+      }
+    }
+  }
+}

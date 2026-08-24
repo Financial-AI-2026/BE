@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.venv/bin/python)",
+      "Read(//private/tmp/**)",
+      "Bash(.venv_dummy)",
+      "Bash(/Users/hansung/Documents/ai-finance/.venv/bin/python)",
+      "Bash(.venv/bin/python scripts/extract_text.py)",
+      "Bash(.venv/bin/python scripts/build_corpus.py)",
+      "Bash(.venv/bin/python scripts/run_extraction.py --sample D --condition C2_wide --repeats 3)",
+      "Bash(.venv/bin/python -c ' *)",
+      "Bash(.venv/bin/python scripts/run_extraction.py --sample D --condition C2_wide --repeats 1)",
+      "Bash(.venv/bin/python -c \"import ast; ast.parse\\(open\\('scripts/run_extraction.py'\\).read\\(\\)\\)\")",
+      "Bash(.venv/bin/python scripts/run_extraction.py --help)",
+      "Bash(.venv/bin/python scripts/run_extraction.py --sample D --condition C2_wide --repeats 1 --prompt v2_tier1)"
+    ]
+  }
+}

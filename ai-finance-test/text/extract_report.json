@@ -1,0 +1,66 @@
+[
+  {
+    "sample": "A",
+    "pdf": "TIGER 미국S&P500 레버리지(합성 H)_투자설명서.pdf",
+    "pdf_size_mb": 1.72,
+    "page_count": 67,
+    "char_count": 106971,
+    "tokens": {
+      "o200k_base": 68141,
+      "cl100k_base": 104815
+    },
+    "chars_per_page_min": 48,
+    "chars_per_page_median": 1649,
+    "chars_per_page_max": 2482,
+    "empty_page_count": 0,
+    "empty_pages": []
+  },
+  {
+    "sample": "B",
+    "pdf": "TIGER 배당커버드콜액티브_투자설명서.pdf",
+    "pdf_size_mb": 2.15,
+    "page_count": 70,
+    "char_count": 99492,
+    "tokens": {
+      "o200k_base": 62613,
+      "cl100k_base": 96152
+    },
+    "chars_per_page_min": 353,
+    "chars_per_page_median": 1443,
+    "chars_per_page_max": 2406,
+    "empty_page_count": 0,
+    "empty_pages": []
+  },
+  {
+    "sample": "C",
+    "pdf": "TIGER TDF2045 적격_투자설명서.pdf",
+    "pdf_size_mb": 0.71,
+    "page_count": 59,
+    "char_count": 93057,
+    "tokens": {
+      "o200k_base": 58724,
+      "cl100k_base": 90072
+    },
+    "chars_per_page_min": 377,
+    "chars_per_page_median": 1650,
+    "chars_per_page_max": 2657,
+    "empty_page_count": 0,
+    "empty_pages": []
+  },
+  {
+    "sample": "D",
+    "pdf": "투자설명서_미래에셋tiger200선물레버리지증권상장지수투자신탁(주식-파생형)_20260626_k55301bo0239.pdf",
+    "pdf_size_mb": 0.83,
+    "page_count": 58,
+    "char_count": 88938,
+    "tokens": {
+      "o200k_base": 57104,
+      "cl100k_base": 87498
+    },
+    "chars_per_page_min": 158,
+    "chars_per_page_median": 1463,
+    "chars_per_page_max": 2473,
+    "empty_page_count": 0,
+    "empty_pages": []
+  }
+]

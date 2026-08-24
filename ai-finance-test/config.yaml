@@ -1,0 +1,86 @@
+# 트랙 A 실행 설정. CLAUDE.md: "모델명은 config.yaml로 분리. 하드코딩 금지."
+
+model:
+  name: gpt-5-mini
+  temperature: null   # 미지원. gpt-5 계열(베이스)은 reasoning_effort를 켠 상태에서
+                       # temperature 파라미터를 거부한다(에러). gpt-5.1+는
+                       # reasoning_effort=none일 때만 예외적으로 허용하지만,
+                       # 그러면 추론 능력을 끄는 셈이라 이번엔 temperature 제어를
+                       # 포기하고 reasoning을 유지하기로 결정함(2026-08-22).
+  reasoning_effort: medium  # OpenAI 기본값. low는 단순 장문 검색엔 충분하나
+                             # 기초지수/비교지수 같은 미묘한 판단엔 부족할 수 있음.
+                             # high는 응답시간(CLAUDE.md "10초 이내" 카피 검증 대상)
+                             # 예산을 넘길 위험 — 파일럿에서 실측 후 조정.
+  seed: 42
+  note: >
+    CLAUDE.md 원래 설계는 "temperature=0 + seed 고정"이었으나 gpt-5 계열과
+    호환 안 됨(사람 확인 후 결정: temperature 설계 포기, gpt-5-mini 베이스 채택).
+    그 결과 재현성 측정은 seed 단독에 의존한다 — temperature 통제가 없다는 뜻이므로
+    3회 반복 결과가 흔들려도 "seed 자체의 한계"인지 "reasoning_effort로 인한
+    비결정성"인지 이번 라운드에서는 구분이 안 될 수 있음. 결과 해석 시 유의.
+
+samples:
+  - id: A
+    name: "TIGER 미국S&P500레버리지(합성 H)"
+    code: "225040"
+    isin: "KR7225040005"
+    pdf: "docs/prospectus/TIGER 미국S&P500 레버리지(합성 H)_투자설명서.pdf"
+  - id: B
+    name: "TIGER 배당커버드콜액티브"
+    code: "472150"
+    isin: "KR7472150002"
+    pdf: "docs/prospectus/TIGER 배당커버드콜액티브_투자설명서.pdf"
+  - id: C
+    name: "TIGER TDF2045 적격"
+    code: "0025N0"
+    isin: "KR70025N0008"
+    pdf: "docs/prospectus/TIGER TDF2045 적격_투자설명서.pdf"
+
+# 원래 계획은 C1/C2 2조건이었으나, 섹션 분할 설계 단계에서 C2 폭(53~55%)의
+# 효과가 불분명해 wide/narrow로 나눠 3조건이 됐다. 실행 규모 18→27회.
+conditions:
+  - id: C1
+    description: "PDF 전문 텍스트 통째 투입 (표는 수치 격자표만 재구성해 덧붙임)"
+    input_glob: "text/{sample}.corpus.txt"
+  - id: C2_wide
+    description: "목차 기준 섹션 분할 — 요약정보+제1부1+제2부(1,6,7,8,9,10,13,14)"
+    input_glob: "sections/{sample}.c2_wide.txt"
+  - id: C2_narrow
+    description: "C2_wide에서 제2부10(투자위험, 정형 위험고지 문구 위주) 제외"
+    input_glob: "sections/{sample}.c2_narrow.txt"
+
+repeats: 3
+run_count: 27  # 3 conditions × 3 samples × 3 repeats — 재현성 측정용, 정확도 측정 아님
+
+tier1_fields:
+  - 종목명
+  - 지수          # 기초지수+비교지수 조합. ground_truth.json 참조. 1 slot
+  - 레버리지배율
+  - 복제방식
+  - 환헤지여부
+  - 전략유형
+  - 분배정책
+  - 총보수
+
+scoring:
+  denominator: 24              # Tier1 8필드 × 3샘플
+  pass_threshold: 22           # 91% 이상 → 성공
+  conditional_range: [18, 21]  # 종목명 파싱 보정 로직 추가 후 재테스트
+  fail_threshold: 17           # 이하 → 전처리 재설계
+  score_basis: raw             # 보정 전 원점수. 보정 후 점수는 results_field.csv의 match_corrected 열
+  evidence_found_min_ratio: 0.90
+  reproducibility: strict      # 3회 반복 Tier1 불일치 0건 요구
+
+paths:
+  ground_truth: "ground_truth.json"
+  prompts_dir: "prompts"
+  raw_dir: "raw"
+  runs_csv: "runs.csv"
+  results_csv: "results_field.csv"
+
+# 전처리 파이프라인(scripts/build_corpus.py) 회귀 테스트에 쓴 타 운용사 문서.
+# 트랙 A 입력이 아니다 — 여기 넣으면 CLAUDE.md 원칙 위반. 파서 견고성 검증 전용.
+regression_only_samples:
+  - name: "삼성KODEX200미국채혼합50"
+    pdf: "docs/prospectus_regression/삼성KODEX200미국채혼합50_투자설명서.pdf"
+    purpose: "목차 표기가 다른 운용사에서도 섹션 분할이 깨지지 않는지 확인"

@@ -7,4 +7,3 @@ router = APIRouter()
 def health_check() -> dict[str, str]:
     """Return service availability without requiring a database connection."""
     return {"status": "ok"}
-

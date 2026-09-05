@@ -1,2 +1,1 @@
 """Individual API endpoints."""
-

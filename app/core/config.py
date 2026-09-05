@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     app_name: str = "Financial AI API"
-    cors_origins: str = "http://localhost:5173"
+    cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
     database_url: str = (
         "postgresql+psycopg://financial_ai:financial_ai_local@localhost:5432/financial_ai"
     )

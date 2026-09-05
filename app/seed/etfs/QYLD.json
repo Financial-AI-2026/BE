@@ -1,0 +1,77 @@
+{
+  "master": {
+    "code": "QYLD",
+    "isin": null,
+    "name": "Global X NASDAQ 100 Covered Call ETF",
+    "market": "US",
+    "manager": "Global X",
+    "listed_at": null,
+    "exchange": "NASDAQ",
+    "source": "manual",
+    "display_order": 8
+  },
+  "profile": {
+    "base_index": "Cboe NASDAQ-100 BuyWrite V2",
+    "replication": "실물",
+    "leverage": 1.0,
+    "daily_rebalancing": false,
+    "is_active": false,
+    "strategy": "커버드콜",
+    "distribution": "월분배",
+    "distribution_yield": 11.5,
+    "target_year": null,
+    "total_expense": 0.60,
+    "fx_hedge": "미헤지",
+    "counterparty_risk": false,
+    "counterparty": null,
+    "main_assets": ["NASDAQ 100", "Covered Call"],
+    "is_complex_product": false,
+    "extracted_by": "manual",
+    "reviewed_at": "2026-08-31T00:00:00+09:00"
+  },
+  "tokens": [
+    { "seq": 1, "text": "Global X", "translation": "글로벌엑스가 만든" },
+    { "seq": 2, "text": "NASDAQ 100", "translation": "미국 기술주 100개를 담고" },
+    { "seq": 3, "text": "Covered Call", "translation": "매달 돈을 받는 대신 큰 상승은 포기하는" },
+    { "seq": 4, "text": "ETF", "translation": "상품" }
+  ],
+  "hiddenInsight": {
+    "summary": "나스닥이 크게 올라도 그만큼 못 받아요",
+    "body": "커버드콜은 앞으로 오를 수 있는 몫을 미리 팔아 매달 분배금을 만듭니다. 그래서 크게 오르는 구간에서 그 상승분을 온전히 받지 못합니다."
+  },
+  "evidence": [
+    {
+      "field": "hiddenInsight",
+      "quote": "커버드콜 옵션을 매도함으로써 이 펀드는 옵션 행사가격을 초과하는 참조지수 가치 상승분의 이익을 포기하게 되며, 하락에 대한 위험은 계속 부담할 수 있습니다.",
+      "quote_original": "By writing covered call options on a portion of the Fund's portfolio in return for the receipt of premiums, the Fund will give up the opportunity to benefit from potential increases in the value of the Reference Index above the exercise prices of such options, but may continue to bear the risk of declines in the value of the Reference Index.",
+      "location": "요약투자설명서 — 주요 투자전략 (Summary Prospectus, SEC 공시)",
+      "source_type": "US_SUMMARY_PROSPECTUS",
+      "translated": true,
+      "display_order": 1
+    },
+    {
+      "rule_code": "W-CC-01",
+      "quote": "커버드콜 옵션을 매도함으로써 이 펀드는 옵션 행사가격을 초과하는 참조지수 가치 상승분의 이익을 포기하게 됩니다.",
+      "location": "요약투자설명서 — 주요 투자전략 (Summary Prospectus, SEC 공시)",
+      "source_type": "US_SUMMARY_PROSPECTUS",
+      "translated": true,
+      "display_order": 2
+    },
+    {
+      "rule_code": "I-DIV-01",
+      "quote": "2014년 1월부터 2026년 8월까지 매월 빠짐없이 분배금을 지급한 지급기준일(ex-date)·기준일(record date)·지급일(payable date)·금액 내역이 공시되어 있습니다 (예: 2026-08-24 지급기준일, 주당 $0.1829).",
+      "location": "운용사 법정 공시 영역 — Distribution History (globalxetfs.com/funds/qyld)",
+      "source_type": "ISSUER_DISCLOSURE",
+      "translated": true,
+      "display_order": 3
+    },
+    {
+      "rule_code": "I-FX-01",
+      "quote": "환헤지를 하지 아니함",
+      "location": "제2부 9",
+      "source_type": "US_SUMMARY_PROSPECTUS",
+      "translated": true,
+      "display_order": 4
+    }
+  ]
+}

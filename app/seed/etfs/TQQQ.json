@@ -1,0 +1,123 @@
+{
+  "master": {
+    "code": "TQQQ",
+    "isin": null,
+    "name": "ProShares UltraPro QQQ",
+    "market": "US",
+    "manager": "ProShares",
+    "listed_at": null,
+    "exchange": "NASDAQ",
+    "source": "manual",
+    "display_order": 7
+  },
+  "profile": {
+    "base_index": "Nasdaq-100",
+    "replication": "합성",
+    "leverage": 3.0,
+    "daily_rebalancing": true,
+    "is_active": false,
+    "strategy": "레버리지",
+    "distribution": "분기분배",
+    "distribution_yield": 0.5,
+    "target_year": null,
+    "total_expense": 0.82,
+    "fx_hedge": "미헤지",
+    "counterparty_risk": true,
+    "counterparty": null,
+    "main_assets": [
+      "스왑 계약",
+      "선물 계약"
+    ],
+    "is_complex_product": false,
+    "extracted_by": "ai",
+    "reviewed_at": "2026-09-02T00:00:00+09:00"
+  },
+  "tokens": [
+    {
+      "seq": 1,
+      "text": "ProShares",
+      "translation": "프로셰어스가 만든"
+    },
+    {
+      "seq": 2,
+      "text": "UltraPro",
+      "translation": "3배로"
+    },
+    {
+      "seq": 3,
+      "text": "QQQ",
+      "translation": "미국 기술주 100개(나스닥100)를"
+    },
+    {
+      "seq": 4,
+      "text": null,
+      "absent": "방향 표기 없음",
+      "translation": "같은 방향으로 따라가는 상품"
+    }
+  ],
+  "hiddenInsight": {
+    "summary": "이름에 '3배'라는 말이 없어요",
+    "body": "'UltraPro'가 3배를 뜻합니다. 그리고 이 3배는 하루 단위로만 맞춰집니다. 설명서에는 \"지수가 장중 33% 하락에 근접하면 투자금 전액을 잃을 수 있다\"고 적혀 있습니다."
+  },
+  "evidence": [
+    {
+      "field": "hiddenInsight",
+      "quote": "이 펀드는 하루를 제외한 어떤 기간에 대해서도 지수의 일간 성과의 3배(3x)를 달성하는 것을 목표로 하지 않습니다.",
+      "quote_original": "The Fund does not seek to achieve three times (3x) the daily performance of the Index (the \"Daily Target\") for any period other than a day.",
+      "location": "요약투자설명서 — 주요 정보 (Summary Prospectus, SEC 공시)",
+      "source_type": "US_SUMMARY_PROSPECTUS",
+      "translated": true,
+      "display_order": 1
+    },
+    {
+      "rule_code": "W-LEV-01",
+      "quote": "이 펀드는 하루를 제외한 어떤 기간에 대해서도 지수의 일간 성과의 3배를 달성하는 것을 목표로 하지 않습니다.",
+      "quote_original": "The Fund does not seek to achieve three times (3x) the daily performance of the Index (the \"Daily Target\") for any period other than a day.",
+      "location": "요약투자설명서 — 주요 정보 / 주요 위험 (Summary Prospectus, SEC 공시)",
+      "source_type": "US_SUMMARY_PROSPECTUS",
+      "translated": true,
+      "display_order": 2
+    },
+    {
+      "rule_code": "W-LEV-01",
+      "quote": "지수가 장중 33% 손실에 근접하면 투자금 전액을 잃을 수 있습니다.",
+      "quote_original": "If the Index approaches a 33% loss at any point in the day, you could lose your entire investment.",
+      "location": "요약투자설명서 — 주요 정보 / 주요 위험 (Summary Prospectus, SEC 공시)",
+      "source_type": "US_SUMMARY_PROSPECTUS",
+      "translated": true,
+      "display_order": 3
+    },
+    {
+      "rule_code": "W-TR-01",
+      "quote": "지급기준일 : 회계기간종료일(비영업일인 경우 직전영업일)",
+      "location": "제2부 14-가 (이익 배분)",
+      "source_type": "US_SUMMARY_PROSPECTUS",
+      "translated": true,
+      "display_order": 4
+    },
+    {
+      "rule_code": "W-FX-01",
+      "quote": "환헤지를 하지 아니함",
+      "location": "제2부 9 (환헤지 사항)",
+      "source_type": "US_SUMMARY_PROSPECTUS",
+      "translated": true,
+      "display_order": 5
+    },
+    {
+      "rule_code": "I-SYN-01",
+      "quote": "이 펀드는 스왑 계약과 선물 계약을 통해 지수 노출을 확보합니다.",
+      "location": "요약투자설명서 — 주요 투자전략 (Summary Prospectus, SEC 공시)",
+      "source_type": "US_SUMMARY_PROSPECTUS",
+      "translated": true,
+      "display_order": 6
+    },
+    {
+      "rule_code": "I-FX-01",
+      "quote": "환헤지를 하지 아니함",
+      "location": "제2부 9",
+      "source_type": "US_SUMMARY_PROSPECTUS",
+      "translated": true,
+      "display_order": 7
+    }
+  ]
+}

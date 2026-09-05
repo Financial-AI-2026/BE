@@ -1,0 +1,66 @@
+{
+  "master": {
+    "code": "102110",
+    "isin": null,
+    "name": "TIGER 200",
+    "market": "KR",
+    "manager": "미래에셋자산운용",
+    "listed_at": null,
+    "exchange": null,
+    "source": "manual",
+    "display_order": 6
+  },
+  "profile": {
+    "base_index": "코스피200",
+    "replication": "실물",
+    "leverage": 1.0,
+    "daily_rebalancing": false,
+    "is_active": false,
+    "strategy": "지수추종",
+    "distribution": "분기분배",
+    "distribution_yield": 2.0,
+    "target_year": null,
+    "total_expense": 0.05,
+    "fx_hedge": "해당없음",
+    "counterparty_risk": false,
+    "counterparty": null,
+    "main_assets": [
+      "국내 주식"
+    ],
+    "is_complex_product": false,
+    "extracted_by": "ai",
+    "reviewed_at": "2026-09-02T00:00:00+09:00"
+  },
+  "tokens": [
+    {
+      "seq": 1,
+      "text": "TIGER",
+      "translation": "미래에셋이 만든"
+    },
+    {
+      "seq": 2,
+      "text": "200",
+      "translation": "한국 대표 기업 200개를 그대로 따라가는 상품"
+    }
+  ],
+  "hiddenInsight": {
+    "summary": "특별한 구조는 없습니다",
+    "body": "한국 대표 기업 200개를 그대로 담습니다. 복잡한 구조 없이 지수를 따라가는 상품입니다."
+  },
+  "evidence": [
+    {
+      "field": "hiddenInsight",
+      "quote": "기초지수 추종을 위하여 지수를 구성하는 종목 전체를 편입하는 완전복제전략을 원칙으로 하되, 필요시 최적화 기법을 적용하여 일부종목만 편입하는 부분복제전략을 사용.",
+      "location": "투자설명서 제2부 9 (운용방법)",
+      "source_type": "KR_PROSPECTUS",
+      "display_order": 1
+    },
+    {
+      "rule_code": "W-TR-01",
+      "quote": "지급기준일 : 1, 4, 7, 10월 마지막영업일, 회계기간종료일(비영업일인 경우 직전영업일)",
+      "location": "제2부 14-가 (이익 배분)",
+      "source_type": "KR_PROSPECTUS",
+      "display_order": 2
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "master": {
+    "code": "133690",
+    "isin": null,
+    "name": "TIGER 미국나스닥100",
+    "market": "KR",
+    "manager": "미래에셋자산운용",
+    "listed_at": null,
+    "exchange": null,
+    "source": "manual",
+    "display_order": 4
+  },
+  "profile": {
+    "base_index": "NASDAQ-100",
+    "replication": "실물",
+    "leverage": 1.0,
+    "daily_rebalancing": false,
+    "is_active": false,
+    "strategy": "지수추종",
+    "distribution": "분기분배",
+    "distribution_yield": 0.5,
+    "target_year": null,
+    "total_expense": 0.0068,
+    "fx_hedge": "미헤지",
+    "counterparty_risk": false,
+    "counterparty": null,
+    "main_assets": [
+      "미국 기술주"
+    ],
+    "is_complex_product": false,
+    "extracted_by": "ai",
+    "reviewed_at": "2026-09-02T00:00:00+09:00"
+  },
+  "tokens": [
+    {
+      "seq": 1,
+      "text": "TIGER",
+      "translation": "미래에셋이 만든"
+    },
+    {
+      "seq": 2,
+      "text": "미국나스닥100",
+      "translation": "미국 기술주 100개를 그대로 따라가는 상품"
+    },
+    {
+      "seq": 3,
+      "text": null,
+      "absent": "H",
+      "translation": "환율에 따라 수익이 달라집니다"
+    }
+  ],
+  "hiddenInsight": {
+    "summary": "미국 주가가 올라도 손해일 수 있어요",
+    "body": "이름에 (H)가 없습니다. 환율 변동을 막는 장치가 없어서, 원달러 환율이 떨어지면 미국 주가 상승분이 상쇄될 수 있습니다."
+  },
+  "evidence": [
+    {
+      "field": "hiddenInsight",
+      "quote": "동 ETF는 환노출형으로서 별도의 환위험헤지전략을 수행하지 아니함.",
+      "location": "투자설명서 제2부 9 (운용방법)",
+      "source_type": "KR_PROSPECTUS",
+      "display_order": 1
+    },
+    {
+      "rule_code": "W-TR-01",
+      "quote": "지급기준일 : 1, 4, 7, 10월 마지막영업일, 회계기간종료일(비영업일인 경우 직전영업일)",
+      "location": "제2부 14-가 (이익 배분)",
+      "source_type": "KR_PROSPECTUS",
+      "display_order": 2
+    },
+    {
+      "rule_code": "W-FX-01",
+      "quote": "동 ETF는 환노출형으로서 별도의 환위험헤지전략을 수행하지 아니함.",
+      "location": "제2부 9 (운용방법)",
+      "source_type": "KR_PROSPECTUS",
+      "display_order": 3
+    },
+    {
+      "rule_code": "I-FX-01",
+      "quote": "동 ETF는 환노출형으로서 별도의 환위험헤지전략을 수행하지 아니함.",
+      "location": "제2부 9 (운용방법)",
+      "source_type": "KR_PROSPECTUS",
+      "display_order": 4
+    }
+  ]
+}

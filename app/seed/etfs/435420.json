@@ -1,0 +1,110 @@
+{
+  "master": {
+    "code": "435420",
+    "isin": null,
+    "name": "TIGER 미국나스닥100채권혼합50",
+    "market": "KR",
+    "manager": "미래에셋자산운용",
+    "listed_at": null,
+    "exchange": null,
+    "source": "manual",
+    "display_order": 3
+  },
+  "profile": {
+    "base_index": "나스닥100 + 국내채권 혼합 (5:5)",
+    "replication": "실물",
+    "leverage": 1.0,
+    "daily_rebalancing": false,
+    "is_active": false,
+    "strategy": "자산혼합",
+    "distribution": "분기분배",
+    "distribution_yield": 1.5,
+    "target_year": null,
+    "total_expense": 0.25,
+    "fx_hedge": "미헤지",
+    "counterparty_risk": false,
+    "counterparty": null,
+    "main_assets": [
+      "주식",
+      "채권"
+    ],
+    "is_complex_product": false,
+    "extracted_by": "ai",
+    "reviewed_at": "2026-09-02T00:00:00+09:00"
+  },
+  "tokens": [
+    {
+      "seq": 1,
+      "text": "TIGER",
+      "translation": "미래에셋이 만든"
+    },
+    {
+      "seq": 2,
+      "text": "미국나스닥100",
+      "translation": "미국 기술주 100개와"
+    },
+    {
+      "seq": 3,
+      "text": "채권",
+      "translation": "채권을"
+    },
+    {
+      "seq": 4,
+      "text": "혼합",
+      "translation": "함께 담는데"
+    },
+    {
+      "seq": 5,
+      "text": "50",
+      "translation": "그 비율이 반반(50:50)인 상품"
+    }
+  ],
+  "hiddenInsight": {
+    "summary": "이름 끝의 '50'이 반반이라는 뜻이에요",
+    "body": "이름 앞에 '미국나스닥100'이 있어 기술주 상품으로 보이지만, 실제로는 주식과 채권을 반반씩 담습니다. 채권을 섞은 만큼 주식만 담은 상품보다 덜 오르고 덜 내립니다."
+  },
+  "evidence": [
+    {
+      "field": "hiddenInsight",
+      "quote": "NASDAQ 100(총수익) 및 KIS 국채 3-10년(총수익)의 비중을 일별 5:5로 조정하여 산출한다.",
+      "location": "투자설명서 제2부 9 (기초지수)",
+      "source_type": "KR_PROSPECTUS",
+      "display_order": 1
+    },
+    {
+      "rule_code": "W-MIX-01",
+      "quote": "국내 채권 및 채권관련 집합투자증권을 주된 투자대상자산으로 하고 국내 주식 및 주식관련 집합투자증권에도 일부 투자. 채권에 자산총액의 90% 이하, 주식에 40% 이하를 투자합니다.",
+      "location": "제2부 8 (투자대상)",
+      "source_type": "KR_PROSPECTUS",
+      "display_order": 2
+    },
+    {
+      "rule_code": "W-TR-01",
+      "quote": "지급기준일 : 1, 4, 7, 10월 마지막영업일, 회계기간종료일(비영업일인 경우 직전영업일)",
+      "location": "제2부 14-가 (이익 배분)",
+      "source_type": "KR_PROSPECTUS",
+      "display_order": 3
+    },
+    {
+      "rule_code": "W-FX-01",
+      "quote": "환헤지를 하지 아니함",
+      "location": "제2부 9 (환헤지 사항)",
+      "source_type": "KR_PROSPECTUS",
+      "display_order": 4
+    },
+    {
+      "rule_code": "I-MIX-01",
+      "quote": "국내 채권 및 채권관련 집합투자증권을 주된 투자대상자산으로 하고 국내 주식 및 주식관련 집합투자증권에도 일부 투자. 채권에 자산총액의 90% 이하, 주식에 40% 이하를 투자합니다.",
+      "location": "제2부 8",
+      "source_type": "KR_PROSPECTUS",
+      "display_order": 5
+    },
+    {
+      "rule_code": "I-FX-01",
+      "quote": "환헤지를 하지 아니함",
+      "location": "제2부 9",
+      "source_type": "KR_PROSPECTUS",
+      "display_order": 6
+    }
+  ]
+}

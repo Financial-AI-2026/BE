@@ -1,9 +1,13 @@
 .env
 .venv/
+.DS_Store
 __pycache__/
 *.py[cod]
 .pytest_cache/
 .ruff_cache/
 coverage.xml
 htmlcov/
-
+extraction/raw/
+extraction/interim/
+extraction/out/
+extraction/reports/

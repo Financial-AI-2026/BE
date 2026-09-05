@@ -1,0 +1,78 @@
+{
+  "master": {
+    "code": "448290",
+    "isin": null,
+    "name": "TIGER 미국S&P500(H)",
+    "market": "KR",
+    "manager": "미래에셋자산운용",
+    "listed_at": null,
+    "exchange": null,
+    "source": "manual",
+    "display_order": 5
+  },
+  "profile": {
+    "base_index": "S&P 500",
+    "replication": "실물",
+    "leverage": 1.0,
+    "daily_rebalancing": false,
+    "is_active": false,
+    "strategy": "지수추종",
+    "distribution": "분기분배",
+    "distribution_yield": 1.0,
+    "target_year": null,
+    "total_expense": 0.07,
+    "fx_hedge": "헤지",
+    "counterparty_risk": false,
+    "counterparty": null,
+    "main_assets": [
+      "미국 주식"
+    ],
+    "is_complex_product": false,
+    "extracted_by": "ai",
+    "reviewed_at": "2026-09-02T00:00:00+09:00"
+  },
+  "tokens": [
+    {
+      "seq": 1,
+      "text": "TIGER",
+      "translation": "미래에셋이 만든"
+    },
+    {
+      "seq": 2,
+      "text": "미국S&P500",
+      "translation": "미국 큰 회사 500개를 그대로 따라가고"
+    },
+    {
+      "seq": 3,
+      "text": "(H)",
+      "translation": "환율 걱정은 없는 상품"
+    }
+  ],
+  "hiddenInsight": {
+    "summary": "환율 걱정은 없지만 비용이 듭니다",
+    "body": "(H)는 환율 변동을 막는 장치입니다. 대신 그 장치를 유지하는 비용이 수익률에서 빠집니다."
+  },
+  "evidence": [
+    {
+      "field": "hiddenInsight",
+      "quote": "이 투자신탁은 S&P Dow Jones Indices에서 발표하는 'S&P 500'를 기초지수로 하는 상장지수투자신탁으로서, 미국에 상장된 주식에 투자신탁 자산총액의 60% 이상 투자합니다. 한편, 동 ETF는 환헤지형으로서 별도의 환위험헤지전략을 수행합니다.",
+      "location": "투자설명서 제2부 9 (운용방법)",
+      "source_type": "KR_PROSPECTUS",
+      "display_order": 1
+    },
+    {
+      "rule_code": "W-TR-01",
+      "quote": "지급기준일 : 1, 4, 7, 10월 마지막영업일, 회계기간종료일(비영업일인 경우 직전영업일)",
+      "location": "제2부 14-가 (이익 배분)",
+      "source_type": "KR_PROSPECTUS",
+      "display_order": 2
+    },
+    {
+      "rule_code": "I-FXH-01",
+      "quote": "동 ETF는 환헤지형으로서 별도의 환위험헤지전략을 수행합니다.",
+      "location": "제2부 9 (운용방법)",
+      "source_type": "KR_PROSPECTUS",
+      "display_order": 3
+    }
+  ]
+}

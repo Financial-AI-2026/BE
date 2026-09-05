@@ -6,9 +6,13 @@ readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "fastapi[standard]>=0.115,<1.0",
+    "openai>=1.59,<2.0",
+    "pdfplumber>=0.11,<1.0",
     "pydantic-settings>=2.6,<3.0",
+    "pymupdf>=1.24,<2.0",
     "psycopg[binary]>=3.2,<4.0",
     "sqlalchemy>=2.0,<3.0",
+    "beautifulsoup4>=4.15.0",
 ]
 
 [dependency-groups]
@@ -27,4 +31,3 @@ line-length = 100
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
-

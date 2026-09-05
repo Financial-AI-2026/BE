@@ -6,8 +6,7 @@ model:
                        # temperature 파라미터를 거부한다(에러). gpt-5.1+는
                        # reasoning_effort=none일 때만 예외적으로 허용하지만,
                        # 그러면 추론 능력을 끄는 셈이라 이번엔 temperature 제어를
-                       # 포기하고 reasoning을 유지하기로 결정함(2026-08-22).
-  reasoning_effort: medium  # OpenAI 기본값. low는 단순 장문 검색엔 충분하나
+                                                                         reasoning_effort: medium  # OpenAI 기본값. low는 단순 장문 검색엔 충분하나
                              # 기초지수/비교지수 같은 미묘한 판단엔 부족할 수 있음.
                              # high는 응답시간(CLAUDE.md "10초 이내" 카피 검증 대상)
                              # 예산을 넘길 위험 — 파일럿에서 실측 후 조정.

@@ -49,9 +49,6 @@ uv run ruff check .
 # Format check
 uv run ruff format --check .
 
-# Tests
-uv run pytest
-
 # Stop local database
 docker compose down
 ```

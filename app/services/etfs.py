@@ -46,7 +46,9 @@ BASE_INDEX_GLOSSARY = {
 # 418660은 "NASDAQ-100") — 실사용 중 발견. 원문 값 표기는 그대로 두고(대소문자를
 # 규격화하지 않는다, 시딩 시 손대지 말라는 원칙과 같은 이유) 조회만 대소문자
 # 무시하도록 별도 인덱스를 둔다.
-_BASE_INDEX_GLOSSARY_CASEFOLDED = {key.casefold(): value for key, value in BASE_INDEX_GLOSSARY.items()}
+_BASE_INDEX_GLOSSARY_CASEFOLDED = {
+    key.casefold(): value for key, value in BASE_INDEX_GLOSSARY.items()
+}
 
 
 def _base_index_sub(base_index: str) -> str | None:
@@ -105,11 +107,20 @@ DISTRIBUTION_FREQUENCY_PHRASE = {
 }
 
 CLOSING_LINE_WITH_WARNINGS = {
-    FundNature.PURPOSE: "나중에 꼭 써야 할 돈이라면, 필요한 시점에 원하는 금액이 안 될 수도 있다는 점을 감안해주세요.",
-    FundNature.SPARE: "여윳돈이라고 하셨으니 부담은 덜하겠지만, 어떤 구조인지는 알고 사시는 게 좋아요.",
+    FundNature.PURPOSE: (
+        "나중에 꼭 써야 할 돈이라면, 필요한 시점에 원하는 금액이 안 될 수도 있다는 "
+        "점을 감안해주세요."
+    ),
+    FundNature.SPARE: (
+        "여윳돈이라고 하셨으니 부담은 덜하겠지만, 어떤 구조인지는 알고 사시는 게 "
+        "좋아요."
+    ),
 }
 CLOSING_LINE_NO_WARNINGS = {
-    FundNature.PURPOSE: "꼭 필요한 돈이라고 하셨는데, 어긋나는 점은 없었어요. 다만 모든 투자에는 원금 손실 가능성이 있습니다.",
+    FundNature.PURPOSE: (
+        "꼭 필요한 돈이라고 하셨는데, 어긋나는 점은 없었어요. 다만 모든 투자에는 "
+        "원금 손실 가능성이 있습니다."
+    ),
     FundNature.SPARE: "다만 모든 투자에는 원금 손실 가능성이 있습니다.",
 }
 

@@ -161,7 +161,10 @@ def enforce_issuer_disclosure_field_scope(profile: ProductProfile) -> list[Valid
     issues: list[ValidationIssue] = []
     kept: list[EvidenceItem] = []
     for item in profile.evidence:
-        if item.sourceType == "ISSUER_DISCLOSURE" and item.field not in PERFORMANCE_DEPENDENT_FIELDS:
+        if (
+            item.sourceType == "ISSUER_DISCLOSURE"
+            and item.field not in PERFORMANCE_DEPENDENT_FIELDS
+        ):
             issues.append(
                 ValidationIssue(
                     field=item.field,

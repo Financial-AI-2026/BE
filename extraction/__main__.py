@@ -156,7 +156,10 @@ def main() -> None:
         elif args.command == "us-universe":
             as_of = args.as_of or date.today().strftime("%Y%m%d")
             result = sync_us_universe(as_of=as_of)
-            print(f"us-universe {result['asOf']}: count={result['count']} -> {result['snapshotPath']}")
+            print(
+                f"us-universe {result['asOf']}: "
+                f"count={result['count']} -> {result['snapshotPath']}"
+            )
     except (OpenDartError, DataGoKrError, SecEdgarError, NasdaqTraderError, Exception) as exc:
         print(f"error: {exc}", file=sys.stderr)
         raise SystemExit(1) from exc

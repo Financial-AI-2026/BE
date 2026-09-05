@@ -202,15 +202,7 @@ class EtfReadService:
             "code": master.code,
             "name": master.name,
             "market": master.market,
-            "tokens": [
-                {
-                    "seq": token.seq,
-                    "text": token.text,
-                    "absent": token.absent,
-                    "translation": token.translation,
-                }
-                for token in master.name_tokens
-            ],
+            "tokens": _name_tokens(master),
             "hiddenInsight": _hidden_insight(master),
             "structure": _structure(profile),
             "evidence": [
@@ -324,6 +316,7 @@ class EtfReadService:
             "code": master.code,
             "name": master.name,
             "market": master.market,
+            "tokens": _name_tokens(master),
             "structure": _structure(profile),
             "diagnosis": self.get_etf_diagnosis(code, horizon, purpose, fund_nature),
             "evidence": [_evidence_item(item) for item in _sorted_evidence(master.evidence)],
@@ -362,6 +355,18 @@ def _required_profile(master: EtfMaster) -> EtfProfile:
     if master.profile is None:
         raise EtfNotFoundError(master.code)
     return master.profile
+
+
+def _name_tokens(master: EtfMaster) -> list[dict[str, Any]]:
+    return [
+        {
+            "seq": token.seq,
+            "text": token.text,
+            "absent": token.absent,
+            "translation": token.translation,
+        }
+        for token in master.name_tokens
+    ]
 
 
 def _hidden_insight(master: EtfMaster) -> dict[str, str] | None:

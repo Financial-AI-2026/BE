@@ -1,4 +1,5 @@
 from app.models.base import Base
+from app.models.chat import ChatSuggestedQuestion
 from app.models.etf import (
     EtfHiddenInsight,
     EtfMaster,
@@ -12,6 +13,7 @@ from app.models.etf import (
 
 __all__ = [
     "Base",
+    "ChatSuggestedQuestion",
     "EtfHiddenInsight",
     "EtfMaster",
     "EtfNameToken",

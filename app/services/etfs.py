@@ -166,6 +166,34 @@ class EtfReadService:
 
         return {"domestic": domestic, "overseas": overseas}
 
+    def list_etf_summaries(self) -> list[dict[str, Any]]:
+        """Compact per-product structure summary for all reviewed ETFs.
+
+        Used by the chatbot to answer cross-product listing/filter questions
+        (e.g. "매달 분배하는 상품 뭐 있어요?") that span beyond the single
+        product currently in view.
+        """
+        stmt = (
+            select(EtfMaster, EtfProfile)
+            .join(EtfProfile)
+            .where(EtfProfile.reviewed_at.is_not(None))
+            .order_by(EtfMaster.display_order.is_(None), EtfMaster.display_order, EtfMaster.code)
+        )
+        return [
+            {
+                "code": master.code,
+                "name": master.name,
+                "market": master.market,
+                "strategy": profile.strategy,
+                "leverage": _format_decimal(profile.leverage),
+                "replication": profile.replication,
+                "distribution": profile.distribution,
+                "fxHedge": profile.fx_hedge,
+                "totalExpense": _format_decimal(profile.total_expense),
+            }
+            for master, profile in self.session.execute(stmt).all()
+        ]
+
     def get_etf_detail(self, code: str) -> dict[str, Any]:
         master = self._reviewed_master(code)
         profile = _required_profile(master)

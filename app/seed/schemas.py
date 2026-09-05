@@ -90,3 +90,10 @@ class RuleVariantSeed(BaseModel):
     summary: str
     title: str | None = None
     body: str
+
+
+class ChatChipsSeed(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
+    stage4: dict[str, list[str]] = Field(alias="S4")
+    stage6: list[str] = Field(alias="S6")

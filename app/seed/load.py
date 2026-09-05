@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 
 from app.db.session import SessionLocal
 from app.models import (
+    ChatSuggestedQuestion,
     EtfHiddenInsight,
     EtfMaster,
     EtfNameToken,
@@ -17,11 +18,12 @@ from app.models import (
     RuleConfig,
     RuleConfigVariant,
 )
-from app.seed.schemas import EtfSeed, RuleSeed
+from app.seed.schemas import ChatChipsSeed, EtfSeed, RuleSeed
 
 SEED_DIR = Path(__file__).resolve().parent
 ETF_DIR = SEED_DIR / "etfs"
 RULES_PATH = SEED_DIR / "rules.json"
+CHAT_CHIPS_PATH = SEED_DIR / "chat_chips.json"
 
 
 def main() -> None:
@@ -36,6 +38,9 @@ def load_all(session: Session) -> None:
 
     if RULES_PATH.exists():
         upsert_rules(session, read_rule_seeds(RULES_PATH))
+
+    if CHAT_CHIPS_PATH.exists():
+        upsert_chat_chips(session, ChatChipsSeed.model_validate(_read_json(CHAT_CHIPS_PATH)))
 
     session.flush()
     validate_seed_state(session)
@@ -99,6 +104,15 @@ def upsert_rules(session: Session, seeds: Iterable[RuleSeed]) -> None:
             session.add(RuleConfigVariant(rule_code=seed.code, **variant.model_dump()))
 
 
+def upsert_chat_chips(session: Session, seed: ChatChipsSeed) -> None:
+    session.execute(delete(ChatSuggestedQuestion))
+    for code, questions in seed.stage4.items():
+        for seq, question in enumerate(questions, start=1):
+            session.add(ChatSuggestedQuestion(code=code, stage="S4", seq=seq, question=question))
+    for seq, question in enumerate(seed.stage6, start=1):
+        session.add(ChatSuggestedQuestion(code=None, stage="S6", seq=seq, question=question))
+
+
 def validate_seed_state(session: Session) -> None:
     master_count = session.scalar(select(func.count()).select_from(EtfMaster))
     if master_count < 8:
@@ -151,6 +165,10 @@ def validate_seed_state(session: Session) -> None:
     rule_count = session.scalar(select(func.count()).select_from(RuleConfig))
     if rule_count not in {0, 12}:
         raise ValueError(f"expected 0 or 12 rule_config rows, found {rule_count}")
+
+    chip_count = session.scalar(select(func.count()).select_from(ChatSuggestedQuestion))
+    if chip_count not in {0, 27}:
+        raise ValueError(f"expected 0 or 27 chat_suggested_question rows, found {chip_count}")
 
 
 def _upsert(session: Session, model: type[Any], values: dict[str, Any]) -> None:

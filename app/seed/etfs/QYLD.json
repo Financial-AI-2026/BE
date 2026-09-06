@@ -30,10 +30,10 @@
     "reviewed_at": "2026-08-31T00:00:00+09:00"
   },
   "tokens": [
-    { "seq": 1, "text": "Global X", "translation": "글로벌엑스가 만든" },
-    { "seq": 2, "text": "NASDAQ 100", "translation": "미국 기술주 100개를 담고" },
-    { "seq": 3, "text": "Covered Call", "translation": "매달 돈을 받는 대신 큰 상승은 포기하는" },
-    { "seq": 4, "text": "ETF", "translation": "상품" }
+    { "seq": 1, "text": "Global X", "translation": "글로벌엑스가 만든", "detail": "미국 운용사 글로벌엑스의 ETF 브랜드예요. 월분배 상품을 많이 만드는 회사예요." },
+    { "seq": 2, "text": "NASDAQ 100", "translation": "미국 기술주 100개를 담고", "detail": "미국 나스닥 시장의 기술 중심 대형기업 100개를 묶은 지수예요. 애플, 마이크로소프트, 엔비디아 같은 기업이 포함돼 있어요." },
+    { "seq": 3, "text": "Covered Call", "translation": "매달 돈을 받는 대신 큰 상승은 포기하는", "detail": "갖고 있는 주식을 정해진 가격에 팔기로 약속(콜옵션 매도)하고 그 대가를 받는 방식이에요. 매달 받는 돈이 생기는 대신, 주가가 크게 올라도 약속한 가격까지만 받을 수 있어요." },
+    { "seq": 4, "text": "ETF", "translation": "상품", "detail": "거래소에 상장되어 주식처럼 사고팔 수 있는 펀드를 말해요." }
   ],
   "hiddenInsight": {
     "summary": "나스닥이 크게 올라도 그만큼 못 받아요",

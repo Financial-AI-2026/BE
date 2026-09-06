@@ -364,6 +364,7 @@ def _name_tokens(master: EtfMaster) -> list[dict[str, Any]]:
             "text": token.text,
             "absent": token.absent,
             "translation": token.translation,
+            "detail": token.detail,
         }
         for token in master.name_tokens
     ]

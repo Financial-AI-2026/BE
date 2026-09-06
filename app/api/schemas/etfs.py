@@ -32,6 +32,7 @@ class NameTokenResponse(BaseModel):
     text: str | None
     absent: str | None = None
     translation: str
+    detail: str
 
 
 class HiddenInsightResponse(BaseModel):

@@ -53,6 +53,7 @@ class NameTokenSeed(BaseModel):
     text: str | None = None
     absent: str | None = None
     translation: str
+    detail: str
 
 
 class HiddenInsightSeed(BaseModel):

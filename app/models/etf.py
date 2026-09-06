@@ -132,6 +132,7 @@ class EtfNameToken(Base):
     text: Mapped[str | None] = mapped_column()
     absent: Mapped[str | None] = mapped_column()
     translation: Mapped[str] = mapped_column()
+    detail: Mapped[str] = mapped_column()
 
     master: Mapped[EtfMaster] = relationship(back_populates="name_tokens")
 
